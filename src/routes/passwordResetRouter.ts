@@ -10,49 +10,51 @@ router.post("/password-reset-link", async (req, res) => {
   // todo: write your code here
   // 1. verify if email is in database
 
-  const timestamp = Date.now();
-  const currentDate = new Date(timestamp);
+  // const timestamp = Date.now();
+  // const currentDate = new Date(timestamp);
+  //
+  // console.log(email, currentDate.toLocaleString());
+  //
+  // const token = crypto.randomBytes(20).toString("hex");
+  // const resetLink = process.env.FRONTEND_URL + `password-reset/${token}`;
+  // // Validate the email (make sure it's registered, etc.)
+  //
+  // // Create a reset token and expiry date for the user
+  // await prisma.user.update({
+  //   where: { email: user.email },
+  //   data: {
+  //     resetToken: token,
+  //     resetTokenExpiry: Date.now() + 3600000, // 1 hour from now
+  //   },
+  // });
+  //
+  // // Create a transporter object using the default SMTP transport
+  // const transporter = nodemailer.createTransport({
+  //   service: "gmail", // Use your preferred email service
+  //   auth: {
+  //     user: process.env.EMAIL_USER,
+  //     pass: process.env.EMAIL_PASS,
+  //   },
+  // });
+  //
+  // // Email content
+  // const mailOptions = {
+  //   from: process.env.EMAIL_USER,
+  //   to: email,
+  //   subject: "Password Reset",
+  //   text: `Click the link below to reset your password:\n\n${resetLink}\n\nIf you did not request a password reset, please ignore this email.`,
+  //   // You'd typically generate a unique link for the user to reset their password
+  // };
+  //
+  // try {
+  //   await transporter.sendMail(mailOptions);
+  //   res.status(200).send({ message: "Reset email sent successfully." });
+  // } catch (error) {
+  //   console.error("Error sending email:", error);
+  //   res.status(500).send({ error: "Failed to send reset email." });
+  // }
 
-  console.log(email, currentDate.toLocaleString());
-
-  const token = crypto.randomBytes(20).toString("hex");
-  const resetLink = process.env.FRONTEND_URL + `password-reset/${token}`;
-  // Validate the email (make sure it's registered, etc.)
-
-  // Create a reset token and expiry date for the user
-  await prisma.user.update({
-    where: { email: user.email },
-    data: {
-      resetToken: token,
-      resetTokenExpiry: Date.now() + 3600000, // 1 hour from now
-    },
-  });
-
-  // Create a transporter object using the default SMTP transport
-  const transporter = nodemailer.createTransport({
-    service: "gmail", // Use your preferred email service
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-  });
-
-  // Email content
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
-    to: email,
-    subject: "Password Reset",
-    text: `Click the link below to reset your password:\n\n${resetLink}\n\nIf you did not request a password reset, please ignore this email.`,
-    // You'd typically generate a unique link for the user to reset their password
-  };
-
-  try {
-    await transporter.sendMail(mailOptions);
-    res.status(200).send({ message: "Reset email sent successfully." });
-  } catch (error) {
-    console.error("Error sending email:", error);
-    res.status(500).send({ error: "Failed to send reset email." });
-  }
+  return null;
 });
 
 router.post("/password-reset/confirm", async (req, res) => {
